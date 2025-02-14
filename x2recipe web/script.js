@@ -6,7 +6,44 @@ function extractIngredients(text) {
     return ingredientsArray.join(" ");
 }
 
+document.getElementById("getRecipesBtn").addEventListener("click", function() {
+    const inputText = document.getElementById("foodInput").value;
+    const ingredients = extractIngredients(inputText);
+    const button = this;
+    
+    if (!ingredients) {
+        alert("Please enter some text describing your near-expiry food items.");
+        return;
+    }
+    
+    button.innerHTML = '<img src="cooking.gif" alt="Loading..." style="height: 75px;">';
+    button.disabled = true;
 
+    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(ingredients)}&apiKey=${API_KEY}`;
+
+    var myHeaders = new Headers();
+    myHeaders.append("apikey", API_KEY);
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow',
+        headers: myHeaders
+    };
+
+    fetch(url, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            displayRecipes(data.results);
+            button.innerHTML = 'Get Recipes';
+            button.disabled = false;
+        })
+        .catch(error => {
+            console.error("Error fetching recipes:", error);
+            alert("Error fetching recipes. Please try again later.");
+            button.innerHTML = 'Get Recipes';
+            button.disabled = false;
+        });
+});
 
 function displayRecipes(recipes) {
     const container = document.getElementById("recipesContainer");
