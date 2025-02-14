@@ -1,4 +1,4 @@
-
+const API_KEY = "1abd6eaccaf9401982e0e8cd01eecca4";
 
 function extractIngredients(text) {
     let cleaned = text.replace(/[.,]/g, "");
