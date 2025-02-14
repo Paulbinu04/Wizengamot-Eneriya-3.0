@@ -127,7 +127,29 @@ function displayRecipeDetails(recipeId, button) {
         });
 }
 
+function hideRecipeDetails(recipeId, button) {
+    const detailsDiv = document.getElementById(`details-${recipeId}`);
+    const recipeDiv = button.closest('.recipe');
+    const recipeImage = recipeDiv.querySelector('img');
+    detailsDiv.classList.remove('active');
+    detailsDiv.style.maxHeight = '0';
+    recipeImage.style.opacity = '1';
+    button.textContent = 'View Recipe';
+    adjustContainerHeight();
+}
 
+function adjustHeight(recipeId) {
+    const detailsDiv = document.getElementById(`details-${recipeId}`);
+    if (detailsDiv.classList.contains('active')) {
+        detailsDiv.style.maxHeight = detailsDiv.scrollHeight + 'px';
+        adjustContainerHeight();
+    }
+}
+
+function adjustContainerHeight() {
+    const container = document.getElementById("recipesContainer");
+    container.style.maxHeight = container.scrollHeight + 'px';
+}
 
 // Observe changes in the recipesContainer to adjust its height dynamically
 const observer = new MutationObserver(adjustContainerHeight);
