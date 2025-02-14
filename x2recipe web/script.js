@@ -69,6 +69,64 @@ function displayRecipes(recipes) {
     adjustContainerHeight();
 }
 
+function displayRecipeDetails(recipeId, button) {
+    const detailsDiv = document.getElementById(`details-${recipeId}`);
+    const recipeDiv = button.closest('.recipe');
+    const recipeImage = recipeDiv.querySelector('img');
+    if (detailsDiv.classList.contains('active')) {
+        detailsDiv.classList.remove('active');
+        detailsDiv.style.maxHeight = '0';
+        recipeImage.style.opacity = '1';
+        button.textContent = 'View Recipe';
+        adjustContainerHeight();
+        return;
+    }
+
+    button.innerHTML = '<img src="cooking.gif" alt="Loading..." style="height: 75px;">';
+    button.disabled = true;
+
+    const url = `https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=true&apiKey=${API_KEY}`;
+
+    var myHeaders = new Headers();
+    myHeaders.append("apikey", API_KEY);
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow',
+        headers: myHeaders
+    };
+
+    fetch(url, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            detailsDiv.innerHTML = `
+                <div class="recipe">
+                    <h3>${data.title}</h3>
+                    <img src="${data.image}" alt="${data.title}" onload="adjustHeight(${recipeId})">
+                    <p><strong>Ingredients:</strong></p>
+                    <ul>
+                        ${data.extendedIngredients.map(ingredient => `<li>${ingredient.original}</li>`).join('')}
+                    </ul>
+                    <p><strong>Instructions:</strong></p>
+                    <p>${data.instructions}</p>
+                    <button onclick="hideRecipeDetails(${recipeId}, this)">Hide Instructions</button>
+                </div>
+            `;
+            detailsDiv.classList.add('active');
+            detailsDiv.style.maxHeight = detailsDiv.scrollHeight + 'px';
+            recipeImage.style.opacity = '0';
+            button.innerHTML = 'Hide Recipe';
+            button.disabled = false;
+            adjustContainerHeight();
+        })
+        .catch(error => {
+            console.error("Error fetching recipe details:", error);
+            alert("Error fetching recipe details. Please try again later.");
+            button.innerHTML = 'View Recipe';
+            button.disabled = false;
+        });
+}
+
 
 
 // Observe changes in the recipesContainer to adjust its height dynamically
