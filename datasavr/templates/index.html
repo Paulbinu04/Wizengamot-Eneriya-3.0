@@ -12,7 +12,37 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
+<body>
+    <div class="container">
+        <h1>Food Wastage Prediction</h1>
+        <form id="predictionForm" action="/predict" method="post">
+            <div class="form-group">
+                <label for="type_of_food">Type of Food:</label>
+                <select class="form-control" name="Type of Food" id="type_of_food" required>
+                    <option value="" disabled selected>Select Type of Food</option>
+                    <option value="Meat">Meat</option>
+                    <option value="Vegetables">Vegetables</option>
+                    <option value="Fruits">Fruits</option>
+                    <option value="Baked Goods">Baked Goods</option>
+                    <option value="Dairy Products">Dairy Products</option>
+                </select>
+            </div>
 
+            <div class="form-group">
+                <label for="number_of_guests">Number of Guests:</label>
+                <input type="number" class="form-control" name="Number of Guests" id="number_of_guests" placeholder="Enter number of guests" required>
+            </div>
+
+            <div class="form-group">
+                <label for="event_type">Event Type:</label>
+                <select class="form-control" name="Event Type" id="event_type" required>
+                    <option value="" disabled selected>Select Event Type</option>
+                    <option value="Corporate">Corporate</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Social Gathering">Social Gathering</option>
+                </select>
+            </div>
 
 
 </html>
