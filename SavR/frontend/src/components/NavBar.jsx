@@ -6,7 +6,7 @@ const NavBar = () => {
         <div>
             <nav className="bg-blue-800 text-white p-4 flex justify-between items-center shadow-md">
                 <div className="flex items-center space-x-4">
-                    <span className="text-3xl font-bold tracking-wide">SavR</span>
+                    <span className="text-3xl font-bold tracking-wide">SavRY</span>
                     <span className="text-base italic text-gray-300">Save and Savour</span>
                 </div>
                 <div className="flex space-x-10">
