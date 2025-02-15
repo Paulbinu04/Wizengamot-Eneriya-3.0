@@ -1,9 +1,10 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash
 import joblib
 import numpy as np
 import pandas as pd
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'  # Needed for flashing messages
 
 # Load the trained model
 model = joblib.load('best_food_wastage_model.pkl')
@@ -29,6 +30,12 @@ def home():
 def predict():
     # Get form data
     features = [request.form.get(name) for name in feature_names]
+
+    # Check if any field is missing
+    if None in features or '' in features:
+        flash('Please fill out all fields before submitting.')
+        return render_template('index.html',prediction_text=f'Please fill out all fields before Predicting.')
+
     features = np.array(features).reshape(1, -1)
 
     # Convert to DataFrame with appropriate column names
