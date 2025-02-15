@@ -16,7 +16,7 @@ document.getElementById("getRecipesBtn").addEventListener("click", function() {
         return;
     }
     
-    button.innerHTML = '<img src="cooking.gif" alt="Loading..." style="height: 75px;">';
+    button.innerHTML = '<img src="/cooking.gif" alt="Loading..." style="height: 75px;">';
     button.disabled = true;
 
     const url = `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(ingredients)}&apiKey=${API_KEY}`;
