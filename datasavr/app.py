@@ -25,5 +25,22 @@ feature_names = [
 def home():
     return render_template('index.html')
 
+@app.route('/predict', methods=['POST'])
+def predict():
+    # Get form data
+    features = [request.form.get(name) for name in feature_names]
+    features = np.array(features).reshape(1, -1)
 
+    # Convert to DataFrame with appropriate column names
+    features_df = pd.DataFrame(features, columns=feature_names)
+
+    # Preprocess the input if using ANN model
+    if preprocessor:
+        features_df = preprocessor.transform(features_df)
+
+    # Predict the food wastage amount
+    prediction = model.predict(features_df)
+    output = round(prediction[0], 2)
+
+    return render_template('index.html', prediction_text=f'Predicted Food Wastage Amount: {output} units')
 
