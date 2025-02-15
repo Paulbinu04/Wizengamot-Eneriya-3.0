@@ -44,5 +44,79 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="quantity_of_food">Quantity of Food:</label>
+                <input type="number" class="form-control" name="Quantity of Food" id="quantity_of_food" placeholder="Enter quantity of food" required>
+            </div>
 
+            <div class="form-group">
+                <label for="storage_conditions">Storage Conditions:</label>
+                <select class="form-control" name="Storage Conditions" id="storage_conditions" required>
+                    <option value="" disabled selected>Select Storage Conditions</option>
+                    <option value="Refrigerated">Refrigerated</option>
+                    <option value="Room Temperature">Room Temperature</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="purchase_history">Purchase History:</label>
+                <select class="form-control" name="Purchase History" id="purchase_history" required>
+                    <option value="" disabled selected>Select Purchase History</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Occasional">Occasional</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="seasonality">Seasonality:</label>
+                <select class="form-control" name="Seasonality" id="seasonality" required>
+                    <option value="" disabled selected>Select Seasonality</option>
+                    <option value="All Seasons">All Seasons</option>
+                    <option value="Winter">Winter</option>
+                    <option value="Summer">Summer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="preparation_method">Preparation Method:</label>
+                <select class="form-control" name="Preparation Method" id="preparation_method" required>
+                    <option value="" disabled selected>Select Preparation Method</option>
+                    <option value="Buffet">Buffet</option>
+                    <option value="Finger Food">Finger Food</option>
+                    <option value="Sit-down Dinner">Sit-down Dinner</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="geographical_location">Geographical Location:</label>
+                <select class="form-control" name="Geographical Location" id="geographical_location" required>
+                    <option value="" disabled selected>Select Geographical Location</option>
+                    <option value="Urban">Urban</option>
+                    <option value="Suburban">Suburban</option>
+                    <option value="Rural">Rural</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="pricing">Pricing:</label>
+                <select class="form-control" name="Pricing" id="pricing" required>
+                    <option value="" disabled selected>Select Pricing</option>
+                    <option value="Low">Low</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </form>
+        <div class="prediction">
+            <h2>{{ prediction_text }}</h2>
+        </div>
+        <div class="error">
+            <h2>{{ error_message }}</h2>
+        </div>
+    </div>
+
+   
+</body>
 </html>
