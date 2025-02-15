@@ -21,7 +21,9 @@ feature_names = [
     'Geographical Location', 'Pricing'
 ]
 
-
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 
 
