@@ -1,0 +1,127 @@
+<!-- filepath: /D:/PROJECTS/AA HACKATHONS/Eneriya 3.0/Wizengamot-Eneriya/datasavr/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Wastage Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Food Wastage Prediction</h1>
+        <form id="predictionForm" action="/predict" method="post">
+            <div class="form-group">
+                <label for="type_of_food">Type of Food:</label>
+                <select class="form-control" name="Type of Food" id="type_of_food" required>
+                    <option value="" disabled selected>Select Type of Food</option>
+                    <option value="Meat">Meat</option>
+                    <option value="Vegetables">Vegetables</option>
+                    <option value="Fruits">Fruits</option>
+                    <option value="Baked Goods">Baked Goods</option>
+                    <option value="Dairy Products">Dairy Products</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="number_of_guests">Number of Guests:</label>
+                <input type="number" class="form-control" name="Number of Guests" id="number_of_guests" placeholder="Enter number of guests" required>
+            </div>
+
+            <div class="form-group">
+                <label for="event_type">Event Type:</label>
+                <select class="form-control" name="Event Type" id="event_type" required>
+                    <option value="" disabled selected>Select Event Type</option>
+                    <option value="Corporate">Corporate</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Social Gathering">Social Gathering</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity_of_food">Quantity of Food:</label>
+                <input type="number" class="form-control" name="Quantity of Food" id="quantity_of_food" placeholder="Enter quantity of food" required>
+            </div>
+
+            <div class="form-group">
+                <label for="storage_conditions">Storage Conditions:</label>
+                <select class="form-control" name="Storage Conditions" id="storage_conditions" required>
+                    <option value="" disabled selected>Select Storage Conditions</option>
+                    <option value="Refrigerated">Refrigerated</option>
+                    <option value="Room Temperature">Room Temperature</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="purchase_history">Purchase History:</label>
+                <select class="form-control" name="Purchase History" id="purchase_history" required>
+                    <option value="" disabled selected>Select Purchase History</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Occasional">Occasional</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="seasonality">Seasonality:</label>
+                <select class="form-control" name="Seasonality" id="seasonality" required>
+                    <option value="" disabled selected>Select Seasonality</option>
+                    <option value="All Seasons">All Seasons</option>
+                    <option value="Winter">Winter</option>
+                    <option value="Summer">Summer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="preparation_method">Preparation Method:</label>
+                <select class="form-control" name="Preparation Method" id="preparation_method" required>
+                    <option value="" disabled selected>Select Preparation Method</option>
+                    <option value="Buffet">Buffet</option>
+                    <option value="Finger Food">Finger Food</option>
+                    <option value="Sit-down Dinner">Sit-down Dinner</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="geographical_location">Geographical Location:</label>
+                <select class="form-control" name="Geographical Location" id="geographical_location" required>
+                    <option value="" disabled selected>Select Geographical Location</option>
+                    <option value="Urban">Urban</option>
+                    <option value="Suburban">Suburban</option>
+                    <option value="Rural">Rural</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="pricing">Pricing:</label>
+                <select class="form-control" name="Pricing" id="pricing" required>
+                    <option value="" disabled selected>Select Pricing</option>
+                    <option value="Low">Low</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </form>
+        <div class="prediction">
+            <h2>{{ prediction_text }}</h2>
+        </div>
+        <div class="error">
+            <h2>{{ error_message }}</h2>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
