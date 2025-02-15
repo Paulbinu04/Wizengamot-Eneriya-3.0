@@ -3,7 +3,7 @@ import Home from './pages/Home'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SenderPage from './pages/SenderPage';
 import ReceiverPage from './pages/ReceiverPage';
-import PredictFoodWastage from './pages/PredictFoodWastage';
+import NavBar from './components/NavBar';
 // import Dashboard from './pages/Dashboard';
 function App() {
 
@@ -14,9 +14,8 @@ function App() {
       <BrowserRouter>
       <Routes>
           <Route path="/" element={<Home />}/> 
-          <Route path="/sender" element={<SenderPage />}/> 
-          <Route path="/receiver" element={<ReceiverPage />}/> 
-          <Route path="/predict" element={<PredictFoodWastage />} />
+          <Route path="/sender" element={<><NavBar/><SenderPage /></>}/> 
+          <Route path="/receiver" element={<><NavBar/><ReceiverPage /></>}/> 
           {/* <Route path="/dashboard" element={<Dashboard/>} /> */}
       </Routes>
     </BrowserRouter>

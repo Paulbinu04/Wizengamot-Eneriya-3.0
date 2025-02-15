@@ -174,9 +174,6 @@
             SavRY
         </a>
         <div class="nav-links">
-            <a href="#">HOME</a>
-            <a href="#">ABOUT</a>
-            <a href="#">CONTACT</a>
             <% if (name) { %>
                 <span>Welcome, <%= name %></span>
                 <a href="/logout" class="sign-up">LOGOUT</a>
@@ -201,7 +198,7 @@
                 <i data-lucide="heart-handshake" size="48" color="#4CAF50"></i>
                 <h3>Sell Excess Food to your community</h3>
                 <p>Every day, tons of food go to waste while millions of people go hungry. Instead of throwing away excess food, donate it for slight profit and help others.</p>
-                <a href="http://localhost:5173/" class="button">Donate Now</a>
+                <% if (name){%><a href="http://localhost:5173/" class="button">Sell Now</a><%}else{%><a href="/donlogin" class="button">Sell Now</a><%}%> 
             </div>
         </div>
 
@@ -247,12 +244,11 @@
             </div>
             <div class="feature-content">
                 <i data-lucide="predict" size="48" color="#4CAF50"></i>
-                <h3>Food waste Predictor</h3>
-                <p>Predict the food waste that may be left after a event and plan accordingly!</p>
-                <a href="predict.html" class="button">Start Tracking</a>
+                <h3>Food Predictor</h3>
+                <p>Predict the amount of food required for an event and plan accordingly!</p>
+                <a href="/food-calculator" class="button">Start Tracking</a>
             </div>
         </div>
-
         <div class="feature-card">
             <div class="feature-image">
                 <img src="images/predict.png" alt="Food Waste Predictor">
@@ -260,10 +256,22 @@
             <div class="feature-content">
                 <i data-lucide="predict" size="48" color="#4CAF50"></i>
                 <h3>Food waste Predictor</h3>
-                <p>Predict the food waste that may be left after a event and plan accordingly!</p>
+                <p>Predict the food waste that may be left after an event and plan accordingly!</p>
                 <a href="http://127.0.0.1:5000" class="button">Start Tracking</a>
             </div>
         </div>
+        <div class="feature-card">
+            <div class="feature-image">
+                <img src="images/co2.jpg" alt="Food Waste Predictor">
+            </div>
+            <div class="feature-content">
+                <i data-lucide="predict" size="48" color="#4CAF50"></i>
+                <h3>CO2 Reduction Dashboard</h3>
+                <p>This dashboard shows our impact in reducing the co2 emmisions within our communities</p>
+                <a href="http://localhost:8501" class="button">Start Tracking</a>
+            </div>
+        </div>
+
     </div>
 
     

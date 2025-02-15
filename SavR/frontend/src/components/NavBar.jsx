@@ -10,10 +10,10 @@ const NavBar = () => {
                     <span className="text-base italic text-gray-300">Save and Savour</span>
                 </div>
                 <div className="flex space-x-10">
-                    <Link to="/" className="hover:text-gray-300">Home</Link>
+                    <Link to="http://localhost:3000/" className="hover:text-gray-300">Home</Link>
                     <Link to="/sender" className="hover:text-gray-300">Sender</Link>
                     <Link to="/receiver" className="hover:text-gray-300">Receiver</Link>
-                    <Link to="/" className="hover:text-gray-300">Contact</Link>
+                    {/* <Link to="/" className="hover:text-gray-300">Contact</Link> */}
                 </div>
                 <div className="flex items-center space-x-4">
                     <button className="relative">
@@ -23,8 +23,6 @@ const NavBar = () => {
                     <button>
                         <FaCog className="text-xl" />
                     </button>
-                    <button className="bg-white text-blue-800 px-4 py-2 rounded hover:bg-gray-200">Login</button>
-                    <button className="bg-white text-blue-800 px-4 py-2 rounded hover:bg-gray-200">Signup</button>
                 </div>
             </nav>
         </div>
