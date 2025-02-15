@@ -14,7 +14,12 @@ try:
 except:
     preprocessor = None
 
-
+# Define the feature names
+feature_names = [
+    'Type of Food', 'Number of Guests', 'Event Type', 'Quantity of Food',
+    'Storage Conditions', 'Purchase History', 'Seasonality', 'Preparation Method',
+    'Geographical Location', 'Pricing'
+]
 
 
 
