@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vegetable Portion Planner</title>
+    <title>Meal and Dessert Planner</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,14 +55,14 @@
             border-color: #4299e1;
         }
         
-        .vegetable-list {
+        .list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
         
-        .vegetable-card {
+        .card {
             border: 1px solid #ddd;
             padding: 20px;
             border-radius: 10px;
@@ -71,12 +71,12 @@
             position: relative;
         }
         
-        .vegetable-card:hover {
+        .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
         
-        .vegetable-card h3 {
+        .card h3 {
             margin-top: 0;
             color: #2c5282;
         }
@@ -86,7 +86,7 @@
             color: #444;
         }
         
-        .customize-button, .remove-button, .confirm-button {
+        .customize-button, .remove-button, .reset-button {
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -121,7 +121,7 @@
             border-radius: 4px;
             display: none;
         }
-        
+
         .result-section {
             margin-top: 30px;
         }
@@ -133,7 +133,7 @@
             margin-top: 20px;
         }
 
-        .confirm-button {
+        .reset-button {
             background: #38a169;
             color: white;
             display: block;
@@ -141,7 +141,7 @@
             text-align: center;
         }
 
-        .confirm-button:hover {
+        .reset-button:hover {
             background: #2f855a;
         }
         
@@ -160,7 +160,7 @@
     </style>
 </head>
 <body>
-    <h1>Vegetable Portion Planner</h1>
+    <h1>Meal and Dessert Planner</h1>
     
     <div class="container input-section">
         <h2>Enter Number of Eaters</h2>
@@ -179,53 +179,84 @@
     </div>
 
     <div class="container">
-        <h2>Suggested Vegetables and Portions</h2>
-        <div class="vegetable-list" id="vegetableList">
-            <!-- Vegetable cards will be dynamically added here -->
+        <h2>Suggested Meals and Portions</h2>
+        <div class="list" id="mealList">
+            <!-- Meal cards will be dynamically added here -->
         </div>
-        <button class="confirm-button" onclick="confirmSelection()">That's Good</button>
+    </div>
+
+    <div class="container">
+        <h2>Suggested Desserts and Portions</h2>
+        <div class="list" id="dessertList">
+            <!-- Dessert cards will be dynamically added here -->
+        </div>
+    </div>
+    
+    <div class="container">
+        <button class="reset-button" onclick="resetAll()">Start Over</button>
     </div>
 
     <script>
-        const vegetables = [
-            { name: "Carrots", smallPortion: "50g", averagePortion: "75g", bigPortion: "100g", notes: "Great for salads and stir-fries" },
-            { name: "Broccoli", smallPortion: "60g", averagePortion: "90g", bigPortion: "120g", notes: "Rich in vitamins and fiber" },
-            { name: "Green Beans", smallPortion: "40g", averagePortion: "60g", bigPortion: "80g", notes: "Perfect steamed or in stir-fries" },
-            { name: "Mixed Salad Greens", smallPortion: "30g", averagePortion: "45g", bigPortion: "60g", notes: "Fresh and nutritious" },
-            { name: "Bell Peppers", smallPortion: "40g", averagePortion: "60g", bigPortion: "80g", notes: "Adds color and crunch" }
+        const meals = [
+            { name: "Grilled Chicken", smallPortion: "150g", averagePortion: "200g", bigPortion: "250g", notes: "Perfectly grilled to retain juices" },
+            { name: "Beef Steak", smallPortion: "180g", averagePortion: "230g", bigPortion: "280g", notes: "Rich and flavorful" },
+            { name: "Vegetable Stir-fry", smallPortion: "120g", averagePortion: "160g", bigPortion: "200g", notes: "Fresh and healthy" },
+            { name: "Pasta Primavera", smallPortion: "100g", averagePortion: "150g", bigPortion: "200g", notes: "Light and delicious" }
         ];
 
-        function createVegetableCard(vegetable) {
+        const desserts = [
+            { name: "Chocolate Cake", smallPortion: "50g", averagePortion: "75g", bigPortion: "100g", notes: "Rich and decadent" },
+            { name: "Fruit Salad", smallPortion: "60g", averagePortion: "90g", bigPortion: "120g", notes: "Fresh and sweet" },
+            { name: "Ice Cream", smallPortion: "50g", averagePortion: "75g", bigPortion: "100g", notes: "Creamy and delicious" },
+            { name: "Cheesecake", smallPortion: "60g", averagePortion: "90g", bigPortion: "120g", notes: "Smooth and creamy" }
+        ];
+
+        function createCard(item, category) {
             const card = document.createElement('div');
-            card.className = 'vegetable-card';
+            card.className = 'card';
             
-            const totalSmall = document.getElementById('smallEaters').value * parseInt(vegetable.smallPortion);
-            const totalAverage = document.getElementById('averageEaters').value * parseInt(vegetable.averagePortion);
-            const totalBig = document.getElementById('bigEaters').value * parseInt(vegetable.bigPortion);
-            const totalGrams = totalSmall + totalAverage + totalBig;
+            let totalPortion;
+            if (category === 'meal' || category === 'dessert') {
+                const totalSmall = document.getElementById('smallEaters').value * parseInt(item.smallPortion);
+                const totalAverage = document.getElementById('averageEaters').value * parseInt(item.averagePortion);
+                const totalBig = document.getElementById('bigEaters').value * parseInt(item.bigPortion);
+                totalPortion = totalSmall + totalAverage + totalBig;
+            }
 
             card.innerHTML = `
-                <h3>${vegetable.name}</h3>
-                <p class="portions">
-                    Small Eater: ${vegetable.smallPortion}<br>
-                    Average Eater: ${vegetable.averagePortion}<br>
-                    Big Eater: ${vegetable.bigPortion}
-                </p>
-                <p><strong>Total needed: ${totalGrams}g</strong></p>
-                <p><em>${vegetable.notes}</em></p>
+                <h3>${item.name}</h3>
+                ${category === 'meal' || category === 'dessert' ? `
+                    <p class="portions">
+                        Small Eater: ${item.smallPortion}<br>
+                        Average Eater: ${item.averagePortion}<br>
+                        Big Eater: ${item.bigPortion}
+                    </p>
+                    <p><strong>Total needed: ${totalPortion}g</strong></p>
+                ` : ''}
+                <p><em>${item.notes}</em></p>
                 <button class="customize-button" onclick="toggleCustomize(this)">Customize</button>
-                <button class="remove-button" onclick="removeVegetable(this)">Remove</button>
-                <input type="text" class="custom-input" placeholder="Enter custom portion...">
+                <button class="remove-button" onclick="removeItem(this)">Remove</button>
+                <div class="custom-input">
+                    <label>Small Eater Protein: <input type="number" class="small-eater-protein" min="0" placeholder="g"></label>
+                    <label>Average Eater Protein: <input type="number" class="average-eater-protein" min="0" placeholder="g"></label>
+                    <label>Big Eater Protein: <input type="number" class="big-eater-protein" min="0" placeholder="g"></label>
+                </div>
             `;
             
             return card;
         }
 
-        function updateVegetableList() {
-            const list = document.getElementById('vegetableList');
+        function updateList(category) {
+            const list = document.getElementById(`${category}List`);
             list.innerHTML = '';
-            vegetables.forEach(vegetable => {
-                list.appendChild(createVegetableCard(vegetable));
+            let items;
+            if (category === 'meal') {
+                items = meals;
+            } else if (category === 'dessert') {
+                items = desserts;
+            }
+            items.forEach(item => {
+                list.appendChild(createCard(item, category));
             });
         }
 
@@ -234,21 +265,35 @@
             input.style.display = input.style.display === 'none' ? 'block' : 'none';
         }
 
-        function removeVegetable(button) {
+        function removeItem(button) {
             button.parentElement.remove();
         }
 
-        function confirmSelection() {
-            window.location.href = 'veg.html';
+        function resetAll() {
+            document.getElementById('smallEaters').value = 0;
+            document.getElementById('averageEaters').value = 0;
+            document.getElementById('bigEaters').value = 0;
+            updateList('meal');
+            updateList('dessert');
         }
 
         // Add event listeners to update when numbers change
-        document.getElementById('smallEaters').addEventListener('change', updateVegetableList);
-        document.getElementById('averageEaters').addEventListener('change', updateVegetableList);
-        document.getElementById('bigEaters').addEventListener('change', updateVegetableList);
+        document.getElementById('smallEaters').addEventListener('change', () => {
+            updateList('meal');
+            updateList('dessert');
+        });
+        document.getElementById('averageEaters').addEventListener('change', () => {
+            updateList('meal');
+            updateList('dessert');
+        });
+        document.getElementById('bigEaters').addEventListener('change', () => {
+            updateList('meal');
+            updateList('dessert');
+        });
 
         // Initial render
-        updateVegetableList();
+        updateList('meal');
+        updateList('dessert');
     </script>
 </body>
 </html>
