@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import fs from 'fs/promises';
+import path from 'path';
 
 const SenderPage = () => {
   const [foodItems, setFoodItems] = useState([]);
@@ -38,11 +40,36 @@ const SenderPage = () => {
   };
 
   const taskService = async (foodItems) => {
-    // Implement task submission logic here
-    console.log('Task Submitted :', foodItems);
-    
-
-  }
+    try {
+      const tasksFilePath =  './tasks.json';
+      
+      // Read existing tasks
+      let tasks = [];
+      try {
+        const existingData = await fs.readFile(tasksFilePath, 'utf8');
+        tasks = JSON.parse(existingData);
+      } catch (error) {
+        // If file doesn't exist or is empty, start with empty array
+        tasks = [];
+      }
+  
+      // Add new food items with timestamp
+      const newEntry = {
+        id: Date.now(), // unique identifier
+        timestamp: new Date().toISOString(),
+        items: foodItems
+      };
+  
+      tasks.push(newEntry);
+  
+      // Write back to file
+      await fs.writeFile(tasksFilePath, JSON.stringify(tasks, null, 2));
+      console.log('Tasks saved successfully');
+    } catch (error) {
+      console.error('Error saving tasks:', error);
+      throw error;
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

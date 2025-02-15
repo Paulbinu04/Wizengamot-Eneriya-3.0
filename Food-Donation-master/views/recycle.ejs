@@ -177,48 +177,79 @@
     </div>
 
     <script>
-        // Simulated database of products and their recycling instructions
+        // Simulated database of food products and their recycling instructions
         const productDatabase = {
-    '123456789': {
-        name: 'Plastic Water Bottle',
-        material: 'PET Plastic',
-        instructions: 'Rinse and recycle in plastic recycling bin',
-        carbonSaved: 0.5,
-        reuseIdeas: [
-            'Create a self-watering planter by cutting the bottle in half',
-            'Use as a bird feeder by adding perches and feed holes',
-            'Make an organizer for small items like pencils or crafting supplies',
-            'Convert into a watering can for plants'
-        ],
-        reuseTip: 'Clean thoroughly before reusing. Replace if plastic becomes cloudy or damaged.'
-    },
-    '987654321': {
-        name: 'Glass Jar',
-        material: 'Glass',
-        instructions: 'Remove lid and recycle in glass bin',
-        carbonSaved: 0.3,
-        reuseIdeas: [
-            'Store bulk foods, spices, or homemade preserves',
-            'Create decorative candle holders or vases',
-            'Use as containers for homemade beauty products',
-            'Make storage for office supplies or craft materials'
-        ],
-        reuseTip: 'Sterilize with hot water before reusing for food storage. Keep original lids for best sealing.'
-    },
-    '456789123': {
-        name: 'Cardboard Box',
-        material: 'Cardboard',
-        instructions: 'Break down and recycle in paper bin',
-        carbonSaved: 0.2,
-        reuseIdeas: [
-            'Create storage organizers for home or office',
-            'Make compost for your garden by shredding',
-            'Design a play house or toys for children',
-            'Use as moving or storage boxes'
-        ],
-        reuseTip: 'Keep boxes dry to extend their reuse life. Remove any tape or labels before reusing.'
-    }
-};
+            '334455667': {
+                name: 'Bread',
+                material: 'Bread',
+                instructions: 'Compost in organic waste bin',
+                carbonSaved: 0.05,
+                expiryDate: '2025-02-18',
+                reuseIdeas: [
+                    'Make breadcrumbs or croutons',
+                    'Use as a base for bread pudding',
+                    'Create a bird feeder by coating with peanut butter and seeds',
+                    'Make French toast or bread casserole'
+                ],
+                reuseTip: 'Store properly to avoid mold. Use stale bread for best croutons and breadcrumbs.'
+            },
+            '445566778': {
+                name: 'Flour',
+                material: 'Flour',
+                instructions: 'Compost in organic waste bin if expired',
+                carbonSaved: 0.03,
+                expiryDate: '2025-08-20',
+                reuseIdeas: [
+                    'Use in baking bread, cakes, or cookies',
+                    'Create homemade playdough for kids',
+                    'Make a natural face mask with honey and milk',
+                    'Use as a thickening agent in soups and sauces'
+                ],
+                reuseTip: 'Store in a cool, dry place to extend shelf life. Sift before use if clumped.'
+            },
+            '556677889': {
+                name: 'Banana',
+                material: 'Fruit',
+                instructions: 'Compost in organic waste bin',
+                carbonSaved: 0.07,
+                expiryDate: '2025-02-22',
+                reuseIdeas: [
+                    'Make banana bread or muffins',
+                    'Use in smoothies or milkshakes',
+                    'Create a natural face mask or hair conditioner',
+                    'Use peels as a fertilizer or to polish shoes'
+                ],
+                reuseTip: 'Use ripe bananas for baking. Store peels for composting or immediate use.'
+            },
+            '667788990': {
+                name: 'Chocolate Bar',
+                material: 'Chocolate',
+                instructions: 'Recycle the wrapper in appropriate bin',
+                carbonSaved: 0.02,
+                expiryDate: '2025-12-31',
+                reuseIdeas: [
+                    'Melt and use as a dip for fruits',
+                    'Grate over desserts or hot beverages',
+                    'Use in baking cookies or cakes',
+                    'Make homemade hot chocolate'
+                ],
+                reuseTip: 'Store in a cool, dry place to avoid melting. Use before the expiry date for best quality.'
+            },
+            '778899001': {
+                name: 'Cereal Box',
+                material: 'Cardboard',
+                instructions: 'Break down and recycle in paper bin',
+                carbonSaved: 0.2,
+                expiryDate: '2025-05-15',
+                reuseIdeas: [
+                    'Create storage organizers for home or office',
+                    'Make compost for your garden by shredding',
+                    'Design a play house or toys for children',
+                    'Use as moving or storage boxes'
+                ],
+                reuseTip: 'Keep boxes dry to extend their reuse life. Remove any tape or labels before reusing.'
+            }
+        };
 
         let totalItemsRecycled = 0;
         let totalCarbonSaved = 0;
@@ -232,8 +263,9 @@
                 resultDiv.innerHTML = `
                     <h3>${product.name}</h3>
                     <p><strong>Material:</strong> ${product.material}</p>
-                    <p><strong>Reuse Tip:</strong> ${product.reuseTip}</p>
-                    <p><strong>Instructions:</strong> ${product.instructions}</p>
+                    <p><strong>Tip:</strong> ${product.reuseTip}</p>
+                    <p><strong>Recycle Instructions:</strong> ${product.instructions}</p>
+                    <p><strong>Expiry Date:</strong> ${product.expiryDate}</p>
                 `;
                 resultDiv.className = 'result success';
                 

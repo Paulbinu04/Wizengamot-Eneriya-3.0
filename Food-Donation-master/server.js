@@ -7,7 +7,7 @@ initializeApp({
 });
 
 const db = getFirestore();
-let user=null;
+let user = null;
 const bp = require("body-parser");
 const ph = require("password-hash");
 const uniqId = require("uniqid");
@@ -34,30 +34,6 @@ const port = 3000;
 
 // Middleware
 app.use(cors());
-
-// Load the dataset
-let data = [];
-
-fs.createReadStream("alldata.csv")
-  .pipe(csv())
-  .on("data", (row) => {
-    data.push(row);
-  })
-  .on("end", () => {
-    console.log("CSV file successfully processed");
-  });
-
-// Endpoint to get filtered data
-app.post("/filter", (req, res) => {
-  const { day, food, region } = req.body;
-  const filteredData = data.filter(
-    (item) =>
-      day.includes(item.Day) &&
-      food.includes(item.Food) &&
-      region.includes(item.Region)
-  );
-  res.json(filteredData);
-});
 
 // Endpoint to predict food wastage amount
 // app.post("/predict", (req, res) => {
@@ -96,19 +72,16 @@ app.get("/recycle", function (req, res) {
   res.render("recycle");
 });
 
-
 app.get("/donation", function (req, res) {
-  if(user=="donor"){
+  if (user == "donor") {
     res.render("don_home");
-    }
-  else{ 
-    if(user=="organization"){
+  } else {
+    if (user == "organization") {
       res.render("org_home");
-      }
-    else{
-        res.render("intro");
-      }
+    } else {
+      res.render("intro");
     }
+  }
 });
 
 app.get("/recipe", function (req, res) {
@@ -257,8 +230,7 @@ app.post("/org_login_submit", async function (req, res) {
           name: userData.organization_name,
           dataArr: { org_his_data },
         });
-        user="organization";
-        
+        user = "organization";
       } else {
         //incorrect org id
         res.render("org_login", {
@@ -294,7 +266,7 @@ app.post("/don_login_submit", function (req, res) {
           // Successful login
           req.session.userEmail = email;
           res.render("home", { name: userData.Donor_name });
-          user="donor";
+          user = "donor";
         }
       }
     });
@@ -650,7 +622,7 @@ app.post("/donation_collect", async (req, res) => {
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
-  res.render("home");
+  res.render("home", { name: null });
 });
 
 app.listen(port, () => {
